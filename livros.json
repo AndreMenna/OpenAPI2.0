@@ -1,0 +1,133 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "API de Livros",
+      "version": "1.0.0",
+      "description": "API para inclusão, consulta e remoção de livros.",
+      "contact": {
+        "name": "André Luiz A. Menna",
+        "email": "andremenna1985@gmail.com",
+        "url": "https://github.com/AndreMenna"
+      },
+      "license": {
+        "name": "MIT"
+      }
+    },
+
+    "host": "tads.riogrande.ifrs.edu.br",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "basePath": "/livro/api",
+
+    "paths": {
+      "/livros": {
+        "post": {
+          "tags": ["Inserção"],
+          "summary": "Incluir livro",
+          "description": "Inclui um novo livro.",
+          "produces": [
+            "application/json",
+            "application/xml"
+          ],
+          "parameters": [
+            {
+              "name": "livro",
+              "in": "body",
+              "description": "Dados do livro a ser incluído",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Livro"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Livro incluído com sucesso"
+            },
+            "500": {
+              "description": "Ocorreu um erro não esperado"
+            }
+          }
+        }
+      },
+
+      "/livros/{id}": {
+        "get": {
+          "tags": ["Consulta"],
+          "summary": "Buscar livro por ID",
+          "description": "Retorna as informações de um livro pelo seu ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do livro a ser buscado",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Livro encontrado",
+              "schema": {
+                "$ref": "#/definitions/Livro"
+              }
+            },
+            "404": {
+              "description": "Livro não encontrado"
+            },
+            "500": {
+              "description": "Ocorreu um erro não esperado"
+            }
+          }
+        },
+
+        "delete": {
+          "tags": ["Remoção"],
+          "summary": "Excluir livro por ID",
+          "description": "Exclui um livro pelo seu ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID do livro a ser excluído",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Livro excluído com sucesso"
+            },
+            "404": {
+              "description": "Livro não encontrado"
+            },
+            "500": {
+              "description": "Ocorreu um erro não esperado"
+            }
+          }
+        }
+      }
+    },
+
+    "definitions": {
+      "Livro": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "autor": {
+            "type": "string"
+          },
+          "genero": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
